@@ -73,30 +73,93 @@ useEffect(() => {
     }
   }
   // compenent que exibe o status dos países
+ 
   return (
     <div className="space-y-4">
       <div className="mb-4">
-        <h2 className="text-xl font-medium mb-2">Status dos paises 
-
-        </h2>
+        <h2 className="text-xl font-medium mb-2">Status dos paises</h2>
 
         <select
           value={selectedCountry}
           onChange={(e) => setSelectedCountry(e.target.value)}
           className="w-full max-w-xs p-2 border rounded"
         >
-          <option value="">Escolha os paises</option>
-          <option value="all">Listas De paises
-          </option>
+          <option value="">Escolha dos paises</option>
+          <option value="all">Lista de paises</option>
           {countries.map((country) => (
             <option key={country.country} value={country.country}>
               {country.country}
             </option>
           ))}
         </select>
-            </div>
-          </div>
-        )
-      }
+      </div>
 
-     
+      {error && <div className="bg-red-50 border border-red-200 text-red-700 p-3 rounded">{error}</div>}
+
+      {loading ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="border p-3 rounded bg-gray-100">
+              <div className="h-5 bg-gray-200 rounded w-3/4 mb-3"></div>
+              <div className="h-4 bg-gray-200 rounded w-full mb-2"></div>
+              <div className="h-4 bg-gray-200 rounded w-2/3 mb-2"></div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {selectedCountry && selectedCountry !== "all" && filteredCountry ? (
+            <div className="border p-3 rounded">
+              <h3 className="text-lg font-medium mb-1">{filteredCountry.country}</h3>
+              <p className="text-sm text-gray-500 mb-2">Ultimas Atualização: {formatDate(filteredCountry.updated_at)}</p>
+              <div className="space-y-1">
+                <div className="flex justify-between">
+                  <span>Cases:</span>
+                  <span>{filteredCountry.cases?.toLocaleString() || 0}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Confirmado :</span>
+                  <span>{filteredCountry.confirmed?.toLocaleString() || 0}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Mortos:</span>
+                  <span>{filteredCountry.deaths?.toLocaleString() || 0}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Recuperados:</span>
+                  <span>{filteredCountry.recovered?.toLocaleString() || 0}</span>
+                </div>
+              </div>
+            </div>
+          ) : (
+            countries.map((country) => (
+              <div key={country.country} className="border p-3 rounded">
+                <h3 className="text-lg font-medium mb-1">{country.country}</h3>
+                <p className="text-sm text-gray-500 mb-2">Ultimas atualizações: {formatDate(country.updated_at)}</p>
+                <div className="space-y-1">
+                  <div className="flex justify-between">
+                    <span>Casos:</span>
+                    <span>{country.cases?.toLocaleString() || 0}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Confirmado:</span>
+                    <span>{country.confirmed?.toLocaleString() || 0}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Mortos:</span>
+                    <span>{country.deaths?.toLocaleString() || 0}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Recuoerados:</span>
+                    <span>{country.recovered?.toLocaleString() || 0}</span>
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
+
