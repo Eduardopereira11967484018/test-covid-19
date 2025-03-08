@@ -1,9 +1,17 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { type CountryData, getAllCountries, getBrazilData } from "../sevices/api"
+import { type CountryData, getAllCountries, getBrazilData } from "../services/api"
 
-useEffect(() => {
+export default function CountriesStatus() {
+  const [countries, setCountries] = useState<CountryData[]>([])
+  const [selectedCountry, setSelectedCountry] = useState<string>("")
+  const [filteredCountry, setFilteredCountry] = useState<CountryData | null>(null)
+  const [loading, setLoading] = useState<boolean>(true)
+  const [error, setError] = useState<string | null>(null)
+
+  // fetch data countries  da api
+  useEffect(() => {
     const fetchCountriesData = async () => {
       try {
         setLoading(true)
@@ -16,8 +24,7 @@ useEffect(() => {
         setLoading(false)
       }
     }
+    //console.log(fetchCountriesData())
 
     fetchCountriesData()
   }, [])
-
-
