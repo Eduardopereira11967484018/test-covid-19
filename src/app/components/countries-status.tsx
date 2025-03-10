@@ -78,7 +78,6 @@ useEffect(() => {
     <div className="space-y-4">
       <div className="mb-4">
         <h2 className="text-xl font-medium mb-2">Status dos paises</h2>
-
         <select
           value={selectedCountry}
           onChange={(e) => setSelectedCountry(e.target.value)}
@@ -150,7 +149,7 @@ useEffect(() => {
                     <span>{country.deaths?.toLocaleString() || 0}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Recuoerados:</span>
+                    <span>Recuperados:</span>
                     <span>{country.recovered?.toLocaleString() || 0}</span>
                   </div>
                 </div>
