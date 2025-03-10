@@ -64,20 +64,59 @@ export default function FormSubmissions() {
       </div>
     )
   }
+
+  // interface de exibição das submissões
   return (
     <div className="space-y-4">
-      <h2 className="text-xl font-medium mb-2">Envios de formulário</h2>
-      {submissions.map((submission) => (
-        <div key={submission.id} className="border p-4 rounded">
-          <p><strong>Estados:</strong> {submission.state}</p>
-          <p><strong>Casos:</strong> {submission.cases}</p>
-          <p><strong>Confirmado:</strong> {submission.confirmed}</p>
-          <p><strong>Mortos:</strong> {submission.deaths}</p>
-          <p><strong>Recoperados:</strong> {submission.recovered}</p>
-          <p><strong>Data:</strong> {formatDate(submission.date)}</p>
-          <button onClick={() => handleDelete(submission.id!)} className="text-red-500">Delete</button>
-        </div>
-      ))}
+      <div className="flex justify-between items-center">
+        <h2 className="text-xl font-medium">Envios de formulário</h2>
+        <button
+          onClick={() => {
+            setSubmissions([])
+            localStorage.removeItem("covidFormSubmissions")
+          }}
+          className="px-3 py-1 text-sm bg-red-500 text-white rounded hover:bg-red-600"
+        >
+          Limpar
+        </button>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {submissions.map((submission) => (
+          <div key={submission.id} className="border p-3 rounded">
+            <div className="flex justify-between items-start mb-2">
+              <h3 className="text-lg font-medium">{submission.state}</h3>
+              <button onClick={() => handleDelete(submission.id!)} className="text-red-500 hover:text-red-700">
+                ×
+              </button>
+            </div>
+
+            <p className="text-sm text-gray-500 mb-2">
+              Data: {formatDate(submission.date)}
+              {submission.submittedAt && <span className="block">Enviar: {formatDate(submission.submittedAt)}</span>}
+            </p>
+
+            <div className="space-y-1">
+              <div className="flex justify-between">
+                <span>Casos:</span>
+                <span>{submission.cases?.toLocaleString() || 0}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Confirmado:</span>
+                <span>{submission.confirmed?.toLocaleString() || 0}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Mortos:</span>
+                <span>{submission.deaths?.toLocaleString() || 0}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Recuperados:</span>
+                <span>{submission.recovered?.toLocaleString() || 0}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
