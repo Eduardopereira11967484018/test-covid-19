@@ -1,46 +1,63 @@
-'use client'
-import CountriesStatus from "@/app/components/countries-status";
-import BrazilStatesStatus from "@/app/components/brazil-states-status";
-import CovidDataForm from "@/app/components/covid-data-form";
-import FormSubmissions from "@/app/components/form-submissions"; // Verifique se esse componente existe
-import { useState } from 'react';
+"use client"
+
+import { useState } from "react"
+import BrazilStatesStatus from "@/app/components/brazil-states-status"
+import BrazilDateStatus from "@/app/components/brazil-date-status"
+import CountriesStatus from "@/app/components/countries-status"
+import CovidDataForm from "@/app/components/covid-data-form"
+import FormSubmissions from "@/app/components/form-submissions"
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState("countries");
+  const [activeTab, setActiveTab] = useState<string>("brazil-states")
 
   return (
-    <div className="container mx-auto p-4">
-      <button
-        onClick={() => setActiveTab("countries")}
-        className={`px-4 py-2 mr-2 ${activeTab === "countries" ? "bg-gray-600 text-gray-300" : "bg-gray-300"}`}
-      >
-        Países
-      </button>
-      <button
-        onClick={() => setActiveTab("brazil-states")}
-        className={`px-4 py-2 mr-2 ${activeTab === "brazil-states" ? "bg-gray-600 text-gray-300" : "bg-gray-300"}`}
-      >
-        Estados Brasileiros
-      </button>
-      <button
-        onClick={() => setActiveTab("form")}
-        className={`px-4 py-2 mr-2 ${activeTab === "form" ? "bg-gray-600 text-gray-300" : "bg-gray-300"}`}
-      >
-        Formulário de Dados
-      </button>
-      <button
-        onClick={() => setActiveTab("form-submissions")}
-        className={`px-4 py-2 ${activeTab === "form-submissions" ? "bg-gray-600 text-gray-300" : "bg-gray-300"}`}
-      >
-        Submissões
-      </button>
+    <main className="max-w-5xl mx-auto py-6 px-4">
+      <h1 className="text-2xl font-bold mb-6 text-center">Painel de Dados COVID-19 Brasil</h1>
 
-      <div className="mt-4">
-        {activeTab === "countries" && <CountriesStatus />}
-        {activeTab === "brazil-states" && <BrazilStatesStatus />}
-        {activeTab === "form" && <CovidDataForm />}
-        {activeTab === "form-submissions" && <FormSubmissions />}
+      <div className="mb-6">
+        <div className="flex flex-wrap border-b">
+          <button
+            className={`px-3 py-2 ${activeTab === "brazil-states" ? "border-b-2 border-blue-500 font-medium" : "text-gray-500"}`}
+            onClick={() => setActiveTab("brazil-states")}
+          >
+            Estados Brasileiros
+          </button>
+          <button
+            className={`px-3 py-2 ${activeTab === "brazil-date" ? "border-b-2 border-blue-500 font-medium" : "text-gray-500"}`}
+            onClick={() => setActiveTab("brazil-date")}
+          >
+           Brasil por data
+          </button>
+          <button
+            className={`px-3 py-2 ${activeTab === "countries" ? "border-b-2 border-blue-500 font-medium" : "text-gray-500"}`}
+            onClick={() => setActiveTab("countries")}
+          >
+            
+            Países
+          </button>
+          <button
+            className={`px-3 py-2 ${activeTab === "form" ? "border-b-2 border-blue-500 font-medium" : "text-gray-500"}`}
+            onClick={() => setActiveTab("form")}
+          >
+          Formulário de dados
+          </button>
+          <button
+            className={`px-3 py-2 ${activeTab === "submissions" ? "border-b-2 border-blue-500 font-medium" : "text-gray-500"}`}
+            onClick={() => setActiveTab("submissions")}
+          >
+           Atualizações
+          </button>
+        </div>
       </div>
-    </div>
-  );
+
+      <div>
+        {activeTab === "brazil-states" && <BrazilStatesStatus />}
+        {activeTab === "brazil-date" && <BrazilDateStatus />}
+        {activeTab === "countries" && <CountriesStatus />}
+        {activeTab === "form" && <CovidDataForm />}
+        {activeTab === "submissions" && <FormSubmissions />}
+      </div>
+    </main>
+  )
 }
+

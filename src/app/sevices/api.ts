@@ -38,10 +38,10 @@ export async function getAllStates(): Promise<StateData[]> {
 //Função assíncrona para obter dados da base (UF)
 export async function getStateByUF(uf: string): Promise<StateData> {
     try {
-      //Garantindo que a UF seja convertida para minúscula da API
+      //garantindo que a UF seja convertida para minúscula da API
       const response = await fetch(`${API_URL}/brazil/uf/${uf.toLowerCase()}`)
       
-      //Verificando a resposta JSON
+      //resposta JSON
       const data = await response.json()
   
       //se a API retornar um erro lança uma exceção
@@ -59,10 +59,32 @@ export async function getStateByUF(uf: string): Promise<StateData> {
 
       //console.log(getStateByUF('SP'))
       
-      //lança o erro para ser tratado em outro lugar
+      //lanca o erro para ser tratado em outro lugar
       throw error
     }
   }
+
+  //para obter dados dos estados por data específica
+export async function getStatesByDate(date: string): Promise<StateData[]> {
+  try {
+    const response = await fetch(`${API_URL}`);
+    const data = await response.json();
+
+    //filtrando os estados pela data informada
+    const filteredStates = data.data?.filter((state: StateData) => 
+      state.datetime.startsWith(date) 
+    ) || [];
+
+    return filteredStates;
+  } catch (error) {
+    console.error(`Error fetching states by date (${date}):`, error);
+    throw error;
+  }
+}
+
+// Exemplo
+// getStatesByDate("2024-03-10").then(console.log).catch(console.error);
+
   
   export async function getAllCountries(): Promise<CountryData[]> {
     try {
