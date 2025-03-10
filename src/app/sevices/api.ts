@@ -85,7 +85,7 @@ export async function getStateByUF(uf: string): Promise<StateData> {
       return data.data || {}
       //console.log(data)
     } catch (error) {
-      console.error("Error fetching Brazil data:", error)
+      console.error("Error fetching Brasil data:", error)
       throw error
       //console.log(getBrazilData())
     }
