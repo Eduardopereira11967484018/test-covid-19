@@ -1,12 +1,13 @@
 'use client'
 import CountriesStatus from "@/app/components/countries-status";
 import BrazilStatesStatus from "@/app/components/brazil-states-status";
-import CovidDataForm from "@/app/components/covid-data-form"; // Verifique se esse componente existe
+import CovidDataForm from "@/app/components/covid-data-form";
+import FormSubmissions from "@/app/components/form-submissions"; // Verifique se esse componente existe
 import { useState } from 'react';
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState("countries");
-  
+
   return (
     <div className="container mx-auto p-4">
       <button
@@ -23,15 +24,22 @@ export default function Home() {
       </button>
       <button
         onClick={() => setActiveTab("form")}
-        className={`px-4 py-2 ${activeTab === "form" ? "bg-gray-600 text-gray-300" : "bg-gray-300"}`}
+        className={`px-4 py-2 mr-2 ${activeTab === "form" ? "bg-gray-600 text-gray-300" : "bg-gray-300"}`}
       >
         Formulário de Dados
+      </button>
+      <button
+        onClick={() => setActiveTab("form-submissions")}
+        className={`px-4 py-2 ${activeTab === "form-submissions" ? "bg-gray-600 text-gray-300" : "bg-gray-300"}`}
+      >
+        Submissões
       </button>
 
       <div className="mt-4">
         {activeTab === "countries" && <CountriesStatus />}
         {activeTab === "brazil-states" && <BrazilStatesStatus />}
         {activeTab === "form" && <CovidDataForm />}
+        {activeTab === "form-submissions" && <FormSubmissions />}
       </div>
     </div>
   );

@@ -221,8 +221,8 @@ export default function CovidDataForm() {
               Mortos
               </label>
               <input
-                id="Deaths"
-                name="Deaths"
+                id="deaths"
+                name="deaths"
                 type="number"
                 min="0"
                 value={formData.deaths}
@@ -254,7 +254,7 @@ export default function CovidDataForm() {
              Deletar
             </button>
             <button type="submit" className="px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-             Eviar
+             Enviar
             </button>
           </div>
         </form>
