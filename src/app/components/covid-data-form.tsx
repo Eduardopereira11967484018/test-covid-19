@@ -55,37 +55,44 @@ export default function CovidDataForm() {
 
     // Valida o estado
     if (!formData.state.trim()) {
-      newErrors.state = "State is required"
+      newErrors.state = "O estado é obrigatório"
       isValid = false
     }
 
     // Valida os casos
     if (formData.cases < 0) {
-      newErrors.cases = "Cases must be a positive number"
+      newErrors.cases = "Os casos devem ser um número positivo"
       isValid = false
     }
 
     // Valida confirmacao
     if (formData.confirmed < 0) {
-      newErrors.confirmed = "Confirmed cases must be a positive number"
+      newErrors.confirmed = "Os casos confirmados devem ser um número positivo"
       isValid = false
     }
 
     // Validate deaths
     if (formData.deaths < 0) {
-      newErrors.deaths = "Deaths must be a positive number"
+      newErrors.deaths = "Mortes devem ser um número positivo"
       isValid = false
     }
 
     // Valida recoperados
     if (formData.recovered < 0) {
-      newErrors.recovered = "Recovered must be a positive number"
+      newErrors.recovered = "Recuperado deve ser um número positivo"
       isValid = false
     }
 
     // Valid data
+    const startDate = new Date("2019-12-01")
+    const endDate = new Date("2025-03-11")
+    const inputDate = new Date(formData.date)
+
     if (!formData.date) {
-      newErrors.date = "Date is required"
+      newErrors.date = "Data anterior á pandemia"
+      isValid = false
+    } else if (inputDate < startDate || inputDate > endDate) {
+      newErrors.date = `Date must be between ${startDate.toLocaleDateString()} and ${endDate.toLocaleDateString()}`
       isValid = false
     }
 
@@ -129,6 +136,8 @@ export default function CovidDataForm() {
       console.log("Form data submitted:", submissionData)
     }
   }
+
+  
 
   const handleReset = () => {
     setFormData({
@@ -180,6 +189,8 @@ export default function CovidDataForm() {
                 value={formData.date}
                 onChange={handleChange}
                 className={`w-full p-2 border rounded ${errors.date ? "border-red-500" : ""}`}
+                min="2019-12-01" // Data mínima
+                max="2022-12-31" // Data máxima
               />
               {errors.date && <p className="text-sm text-red-500 mt-1">{errors.date}</p>}
             </div>
