@@ -21,7 +21,7 @@ export default function BrazilDateStatus() {
   const handleSearch = async () => {
     //valida se uma data foi selecionada
     if (!date) {
-      setError("Please select a date")
+      setError("Selecione uma data")
       return
     }
 
@@ -40,11 +40,11 @@ export default function BrazilDateStatus() {
 
       //se define uma mensagem de erro
       if (data.length === 0) {
-        setError("No data available for the selected date")
+        setError("Não há dados disponíveis para a data selecionada")
       }
     } catch (err) {
       //busca e exibe uma mensagem de erro
-      setError("An error occurred while fetching data")
+      setError("Ocorreu um erro ao buscar dados")
       console.error(err)
       setStatesData([])
     } finally {
@@ -84,7 +84,7 @@ export default function BrazilDateStatus() {
             className="p-2 border rounded"
             placeholder="Select date (YYYY-MM-DD)"
           />
-          <button onClick={handleSearch} className="px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+          <button onClick={handleSearch} className="px-3 py-2 bg-green-500 text-white rounded hover:bg-green-600">
             Buscar
           </button>
         </div>

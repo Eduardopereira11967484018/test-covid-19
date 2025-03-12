@@ -264,7 +264,7 @@ export default function CovidDataForm() {
             <button type="button" onClick={handleReset} className="px-3 py-2 border rounded hover:bg-gray-100">
              Deletar
             </button>
-            <button type="submit" className="px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+            <button type="submit" className="px-3 py-2 bg-green-500 text-white rounded hover:bg-green-600">
              Enviar
             </button>
           </div>
@@ -273,7 +273,7 @@ export default function CovidDataForm() {
 
       {submitted && (
         <div className="space-y-4">
-          <div className="bg-green-50 border border-green-200 text-green-800 p-3 rounded">
+          <div className="bg-green-50 border border-green-200 text-green-500 p-3 rounded">
             <p className="font-medium">Formulário enviado</p>
             <p className="text-sm">
             Os dados do formulário foram salvos com sucesso.
